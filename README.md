@@ -1,0 +1,1 @@
+A tiny [Docker Compose](https://docs.docker.com/compose/) project for setting up my [Pi-Hole](https://github.com/pi-hole/docker-pi-hole) in conjuction with [DNS-over-HTTPS Cloudflared](https://github.com/crazy-max/docker-cloudflared).
