@@ -26,8 +26,8 @@ services:
       - "DNS2=1.1.1.1"
       - "WEBPASSWORD=admin"
     volumes:
-      - "etc-pihole:/etc/pihole/"
-      - "etc-dnsmasq.d:/etc/dnsmasq.d/"
+      - "data_etc_pihole:/etc/pihole/"
+      - "data_etc_dnsmasqd:/etc/dnsmasq.d/"
     restart: always
 
   cloudflared:
@@ -41,6 +41,10 @@ services:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
     restart: always
+
+volumes:
+  data_etc_pihole:
+  data_etc_dnsmasqd:
 
 networks:
   pihole:
