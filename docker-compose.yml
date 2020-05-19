@@ -26,8 +26,8 @@ services:
       - "DNS2=1.1.1.1"
       - "WEBPASSWORD=admin"
     volumes:
-      - "./etc-pihole/:/etc/pihole/"
-      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - "etc-pihole:/etc/pihole/"
+      - "etc-dnsmasq.d:/etc/dnsmasq.d/"
     restart: always
 
   cloudflared:
