@@ -38,6 +38,8 @@ services:
     networks:
       pihole:
         ipv4_address: 172.20.0.3
+    ports:
+      - 49312:49312/tcp
     environment:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
