@@ -42,6 +42,20 @@ services:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
     restart: always
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    hostname: watchtower
+    networks:
+      pihole:
+        ipv4_address: 172.20.0.4
+    environment:
+      - "TZ=Europe/Copenhagen"
+      - "WATCHTOWER_POLL_INTERVAL=14400"
+      - "WATCHTOWER_CLEANUP=true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart: unless-stopped
 
 volumes:
   data_etc_pihole:
