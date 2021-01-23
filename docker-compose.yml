@@ -42,6 +42,7 @@ services:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
     restart: always
+
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
