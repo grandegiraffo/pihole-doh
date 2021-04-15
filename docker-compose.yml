@@ -37,6 +37,8 @@ services:
       pihole:
         ipv4_address: 172.20.0.3
     ports:
+      - 5053:5053/tcp
+      - 5053:5053/udp
       - 49312:49312/tcp
     environment:
       - "TZ=Europe/Copenhagen"
