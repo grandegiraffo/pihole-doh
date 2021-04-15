@@ -3,7 +3,7 @@ version: "2.4"
 services:
 
   pihole:
-    image: pihole/pihole:latest
+    image: pihole/pihole:v5.7
     container_name: pihole
     hostname: pihole
     networks:
