@@ -21,7 +21,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
       - name: Validate docker-compose.yml
         run: docker-compose config
+      - name: Validate docker-compose.yml
+        run: docker-compose config
+      - name: Start up containers
+        run: docker-compose up --detach
+      - name: Test Cloudflared
+        run: curl -s --retry 10 --retry-connrefused http://localhost:49312/metrics
+      - name: Test Pi-hole
+        run: curl -s --retry 10 --retry-connrefused http://localhost/admin
