@@ -21,13 +21,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Validate docker-compose.yml
-        run: docker-compose config
+      - name: Trim DNS ports from docker-compose.yml
+        run: sed -i.bak -e '15,16d' docker-compose.yml
       - name: Validate docker-compose.yml
         run: docker-compose config
       - name: Start up containers
         run: docker-compose up --detach
-      - name: Test Cloudflared
+      - name: Test Cloudflared container
         run: curl -s --retry 10 --retry-connrefused http://localhost:49312/metrics
-      - name: Test Pi-hole
+      - name: Test Pi-hole container
         run: curl -s --retry 10 --retry-connrefused http://localhost/admin
