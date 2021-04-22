@@ -28,6 +28,6 @@ jobs:
       - name: Start up containers
         run: docker-compose up --detach
       - name: Test Cloudflared container
-        run: curl -s --retry 10 --retry-connrefused http://localhost:49312/metrics
+        run: curl -s --retry 10 --retry-connrefused http://172.20.0.3:49312/metrics
       - name: Test Pi-hole container
-        run: curl -s --retry 10 --retry-connrefused http://localhost/admin
+        run: curl -s --retry 10 --retry-connrefused http://172.20.0.2/admin
