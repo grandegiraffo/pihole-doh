@@ -23,6 +23,4 @@ jobs:
       - name: Test Pi-hole container
         run: curl -s --retry 10 --retry-connrefused http://172.20.0.2/admin
       - name: Stop and remove containers
-        run: |
-          docker-compose stop
-          docker-compose rm
+        run: docker-compose rm --force --stop
