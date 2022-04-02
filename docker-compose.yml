@@ -6,8 +6,6 @@ services:
     image: pihole/pihole:latest
     container_name: pihole
     hostname: pihole
-    cap_add:
-      - NET_ADMIN
     depends_on:
       - cloudflared
     networks:
