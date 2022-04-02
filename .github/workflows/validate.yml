@@ -12,8 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Trim DNS ports from docker-compose.yml
-        run: sed -i.bak -e '15,16d' docker-compose.yml
+      - name: Trim DNS port lines from docker-compose.yml
+        run: sed -i.bak -e '/53:53/d' docker-compose.yml
       - name: Validate docker-compose.yml
         run: docker-compose config
       - name: Start up containers
