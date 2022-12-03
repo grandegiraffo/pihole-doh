@@ -23,7 +23,7 @@ services:
       - "VIRTUAL_PORT=80"
       - "PIHOLE_DNS_=172.20.0.3#5053"
       - "DNSSEC=true"
-      - "BLOCK_ICLOUD_PR=true"
+      - "BLOCK_ICLOUD_PR=false"
       - "WEBPASSWORD=bl0ckCrap"
     volumes:
       - "data_etc_pihole:/etc/pihole/"
