@@ -28,9 +28,9 @@ jobs:
       - name: Wait for services to be healthy
         run: |
           echo "Waiting for Cloudflared to be healthy..."
-          timeout 60 sh -c 'until docker compose ps cloudflared | grep -q "healthy"; do sleep 2; done' || true
+          timeout 60 sh -c 'until docker compose ps cloudflared | grep -q "healthy"; do sleep 2; done'
           echo "Waiting for Pi-hole to be healthy..."
-          timeout 120 sh -c 'until docker compose ps pihole | grep -q "healthy"; do sleep 2; done' || true
+          timeout 120 sh -c 'until docker compose ps pihole | grep -q "healthy"; do sleep 2; done'
 
       - name: Test Cloudflared container
         run: |
