@@ -12,7 +12,7 @@ services:
       - 1.1.1.1
     networks:
       pihole:
-        ipv4_address: 172.20.0.2
+        ipv4_address: 172.42.0.2
     ports:
       - 53:53/tcp
       - 53:53/udp
@@ -50,7 +50,7 @@ services:
     hostname: cloudflared
     networks:
       pihole:
-        ipv4_address: 172.20.0.3
+        ipv4_address: 172.42.0.3
     ports:
       - 5053:5053/tcp
       - 5053:5053/udp
@@ -78,9 +78,10 @@ services:
     hostname: watchtower
     networks:
       pihole:
-        ipv4_address: 172.20.0.4
+        ipv4_address: 172.42.0.4
     environment:
       - "TZ=Europe/Copenhagen"
+      - "DOCKER_API_VERSION=1.44"
       - "WATCHTOWER_POLL_INTERVAL=14400"
       - "WATCHTOWER_CLEANUP=true"
       - "WATCHTOWER_INCLUDE_RESTARTING=true"
@@ -103,4 +104,4 @@ networks:
   pihole:
     ipam:
       config:
-        - subnet: 172.20.0.0/24
+        - subnet: 172.42.0.0/24
