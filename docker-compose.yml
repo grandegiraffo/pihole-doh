@@ -1,5 +1,3 @@
-version: "2.4"
-
 services:
 
   pihole:
@@ -7,10 +5,11 @@ services:
     container_name: pihole
     hostname: pihole
     depends_on:
-      - cloudflared
+      cloudflared:
+        condition: service_started
     dns:
       - 127.0.0.1
-      - 9.9.9.9
+      - 1.1.1.1
     networks:
       pihole:
         ipv4_address: 172.20.0.2
@@ -27,11 +26,23 @@ services:
       - "DNSSEC=true"
       - "DNSMASQ_LISTENING=all"
       - "BLOCK_ICLOUD_PR=false"
-      - "WEBPASSWORD=bl0ckCrap"
+      - "WEBPASSWORD=${PIHOLE_WEBPASSWORD:-changeme}"
     volumes:
       - "data_etc_pihole:/etc/pihole/"
       - "data_etc_dnsmasqd:/etc/dnsmasq.d/"
-    restart: always
+    healthcheck:
+      test: ["CMD", "dig", "+norecurse", "+retry=0", "@127.0.0.1", "pi.hole"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    restart: unless-stopped
 
   cloudflared:
     image: crazymax/cloudflared:latest
@@ -47,7 +58,19 @@ services:
     environment:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
-    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:49312/metrics"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    restart: unless-stopped
 
   watchtower:
     image: containrrr/watchtower:latest
@@ -60,8 +83,16 @@ services:
       - "TZ=Europe/Copenhagen"
       - "WATCHTOWER_POLL_INTERVAL=14400"
       - "WATCHTOWER_CLEANUP=true"
+      - "WATCHTOWER_INCLUDE_RESTARTING=true"
+      - "WATCHTOWER_REVIVE_STOPPED=false"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
     restart: unless-stopped
 
 volumes:
