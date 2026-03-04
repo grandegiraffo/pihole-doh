@@ -35,4 +35,4 @@ The compose file includes memory limits for all services:
 - Cloudflared: 128MB limit, 64MB reserved
 - Watchtower: 128MB limit, 64MB reserved
 
-All services include health checks for better reliability and faster startup detection.
+The Pi-hole and Cloudflared services include health checks for better reliability and faster startup detection.
