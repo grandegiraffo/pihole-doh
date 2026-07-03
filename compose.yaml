@@ -1,5 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
 services:
-
   pihole:
     image: pihole/pihole:latest
     container_name: pihole
@@ -59,7 +59,15 @@ services:
       - "TZ=Europe/Copenhagen"
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:49312/metrics"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://127.0.0.1:49312/metrics",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3

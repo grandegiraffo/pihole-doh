@@ -20,6 +20,13 @@ export PIHOLE_WEBPASSWORD="your-secure-password-here"
 docker compose up --detach
 ```
 
+This project uses `compose.yaml` as the Compose file name.
+If you are on legacy `docker-compose` v1, run:
+
+```console
+docker-compose -f compose.yaml up -d
+```
+
 3. Tell your DHCP-server/router to use the fixed IP as preferred DNS and enjoy those secure lookups and ad-free surfing.
 
 ## Security Notes
